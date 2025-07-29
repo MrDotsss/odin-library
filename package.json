@@ -1,0 +1,24 @@
+{
+  "name": "odin-library",
+  "version": "1.0.0",
+  "description": "A small JavaScript-powered Library app that allows users to add, view, and manage a list of books. This project is built using **HTML**, **CSS**, and **JavaScript**, with a focus on applying the **Object pattern** to manage book data and interactions.",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrDotsss/odin-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MrDotsss/odin-library/issues"
+  },
+  "homepage": "https://github.com/MrDotsss/odin-library#readme",
+  "devDependencies": {
+    "jest": "^30.0.5"
+  }
+}

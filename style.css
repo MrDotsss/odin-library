@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Times New Roman", Times, serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.bookshelf-grid {
+    width: 80%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.book-bar {
+  border: 0.3rem solid transparent;
+  border-image: radial-gradient(white 10%,yellow 50%, orangered) 1;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    border: 0.3rem solid black;
+    padding: 0.5rem 0;
+    border-radius: 1.5rem;
+    background: linear-gradient(to right, darkgrey, lightgrey);
+}
+
+.book-title {
+  font-size: calc(1rem-0.5em);
+}
+
+.book-cover {
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    border-radius: 0.5rem;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
