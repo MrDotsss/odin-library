@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Odin Library</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
   </head>
   <body>
     <header>
@@ -13,96 +13,49 @@
       <p>A creative collection of books.</p>
     </header>
     <main class="bookshelf-grid">
-      <section class="book">
-        <h1 class="book-title">One Piece</h1>
-        <div class="book-bar"></div>
-        <figure class="book-cover">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg"
-            alt="one piece romance dawn cover"
-          />
-        </figure>
-        <div class="book-bar"></div>
-        <div class="author-page">
-          <h3 class="book-author">Eiichiro Oda</h3>
-          <p class="total-pages">21, 540 Pages</p>
-        </div>
-      </section>
-      <section class="book">
-        <h1 class="book-title">One Piece</h1>
-        <div class="book-bar"></div>
-        <figure class="book-cover">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg"
-            alt="one piece romance dawn cover"
-          />
-        </figure>
-        <div class="book-bar"></div>
-        <div class="author-page">
-          <h3 class="book-author">Eiichiro Oda</h3>
-          <p class="total-pages">21, 540 Pages</p>
-        </div>
-      </section>
-      <section class="book">
-        <h1 class="book-title">One Piece</h1>
-        <div class="book-bar"></div>
-        <figure class="book-cover">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg"
-            alt="one piece romance dawn cover"
-          />
-        </figure>
-        <div class="book-bar"></div>
-        <div class="author-page">
-          <h3 class="book-author">Eiichiro Oda</h3>
-          <p class="total-pages">21, 540 Pages</p>
-        </div>
-      </section>
-      <section class="book">
-        <h1 class="book-title">Flower blooms in summer </h1>
-        <div class="book-bar"></div>
-        <figure class="book-cover">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg"
-            alt="one piece romance dawn cover"
-          />
-        </figure>
-        <div class="book-bar"></div>
-        <div class="author-page">
-          <h3 class="book-author">Eiichiro Oda</h3>
-          <p class="total-pages">21, 540 Pages</p>
-        </div>
-      </section>
-      <section class="book">
-        <h1 class="book-title">One Piece</h1>
-        <div class="book-bar"></div>
-        <figure class="book-cover">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg"
-            alt="one piece romance dawn cover"
-          />
-        </figure>
-        <div class="book-bar"></div>
-        <div class="author-page">
-          <h3 class="book-author">Eiichiro Oda</h3>
-          <p class="total-pages">21, 540 Pages</p>
-        </div>
-      </section>
-      <section class="book">
-        <h1 class="book-title">One Piece</h1>
-        <div class="book-bar"></div>
-        <figure class="book-cover">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg"
-            alt="one piece romance dawn cover"
-          />
-        </figure>
-        <div class="book-bar"></div>
-        <div class="author-page">
-          <h3 class="book-author">Eiichiro Oda</h3>
-          <p class="total-pages">21, 540 Pages</p>
-        </div>
+      <section class="book add-new">
+        <h1>➕</h1>
+        <h1>Add New</h1>
       </section>
     </main>
+    <dialog id="add-book-modal">
+      <div class="add-book-dialog">
+        <h1>Add New Book</h1>
+        <div class="book-bar"></div>
+        <form>
+          <div class="input-field">
+            <label for="author-name">Author Name *</label
+            ><input type="text" name="author-name" id="author-name" required />
+          </div>
+          <div class="input-field">
+            <label for="book-title">Book Title *</label
+            ><input type="text" name="book-title" id="book-title" required />
+          </div>
+          <div class="input-field">
+            <label for="total-pages">Total Pages *</label
+            ><input
+              type="number"
+              name="total-pages"
+              id="total-pages"
+              min="0"
+              required
+            />
+          </div>
+          <div class="input-field">
+            <label for="image-url">Image URL (optional)</label
+            ><input type="url" name="image-url" id="image-url" />
+          </div>
+          <div class="book-bar"></div>
+          <div class="form-btn-group">
+            <div class="input-field">
+              <input type="checkbox" id="is-read" />
+              <label for="is-read"> Mark as Read </label>
+            </div>
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="submit">Add New</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
   </body>
 </html>
