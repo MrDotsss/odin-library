@@ -28,10 +28,20 @@ function addBookToLibrary(author, title, page, read) {
   return newBook;
 }
 
+function removeBookToLibrary(book) {
+  const index = myLibrary.indexOf(book);
+  if (index > -1) {
+    myLibrary.splice(index, 1);
+  }
+
+  return index;
+}
+
 if (typeof module !== "undefined") {
   module.exports = {
     Book,
     myLibrary,
     addBookToLibrary,
+    removeBookToLibrary,
   };
 }
