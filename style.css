@@ -29,6 +29,31 @@ body {
   align-items: center;
   width: 100vw;
   background-color: var(--bg-dark);
+  padding: 2rem;
+}
+
+header {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 0.5rem;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.btn-container button {
+  background-color: var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-container button:hover {
+  background-color: transparent;
+  border: 0.1rem solid var(--primary);
 }
 
 .bookshelf-grid {
@@ -48,7 +73,6 @@ body {
 }
 
 .book {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -61,7 +85,6 @@ body {
   background-color: var(--bg-light);
   opacity: 80%;
   transition: scale 0.5s, border 0.5s, opacity 0.5s;
-  cursor: pointer;
   animation-name: pop-up;
   animation-duration: 0.5s;
 }
@@ -81,6 +104,7 @@ body {
 }
 
 .book-cover {
+  position: relative;
   width: 100%;
   overflow: hidden;
   display: block;
@@ -91,22 +115,28 @@ body {
 .book-cover .book-img {
   width: 100%;
   height: 100%;
+  min-height: 256px;
   object-fit: cover;
 }
 
 .read {
   position: absolute;
-  top: 10%;
+  top: 0;
   right: 0;
-  font-size: calc(3rem - 1em);
-  text-shadow: 2px 2px 4px var(--primary);
+  font-size: calc(3rem - 10%);
+  border: 2px solid var(--highlight);
+  background-color: var(--success);
+  border-radius: 50%;
+  box-shadow: 0 0 16px white;
+  animation-name: pop-up;
+  animation-duration: 1s;
 }
 
 .add-new {
   justify-content: center;
   font-size: 1.3rem;
-  opacity: 50%;
   background-color: var(--primary);
+  cursor: pointer;
 }
 
 dialog {

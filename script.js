@@ -3,6 +3,7 @@ const myLibrary = [];
 const addNewDialog = document.querySelector("#add-book-modal");
 const cancelDialog = document.querySelector(".cancel-btn");
 const form = document.querySelector(".add-book-dialog form");
+const titleAddBtn = document.querySelector(".btn-container .add-new");
 
 const authorInput = document.querySelector("#author-name");
 const titleInput = document.querySelector("#book-title");
@@ -12,7 +13,12 @@ const readCheckbox = document.querySelector("#is-read");
 
 const bookshelfGrid = document.querySelector(".bookshelf-grid");
 
+titleAddBtn.addEventListener("click", (event) => {
+  addNewDialog.showModal();
+});
+
 cancelDialog.addEventListener("click", (event) => {
+  form.reset();
   addNewDialog.close();
 });
 
@@ -31,6 +37,7 @@ form.addEventListener("submit", (event) => {
       readCheckbox.checked
     )
   );
+  form.reset();
   addNewDialog.close();
 });
 
@@ -56,7 +63,14 @@ function Book(author, title, imageUrl, page, read) {
 
 Book.prototype.toggleRead = function () {
   this.read = !this.read;
+
+  const targetElement = document.querySelector(`[data-book-id="${this.id}"]`);
+  const bookReadBtn = targetElement.querySelector(".book-read-btn");
+  const readIcon = targetElement.querySelector(".read");
+  readIcon.textContent = this.read ? "📚" : "";
+  bookReadBtn.textContent = this.read ? "Mark Unread" : "Mark Read";
 };
+
 addBookToLibrary(
   "Eiichiro Oda",
   "One Piece",
@@ -70,7 +84,7 @@ addBookToLibrary(
   "Dandadan",
   "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Dandadan_vol._1_cover.jpg/250px-Dandadan_vol._1_cover.jpg",
   2000,
-  true
+  false
 );
 
 addBookToLibrary(
@@ -78,7 +92,7 @@ addBookToLibrary(
   "Demon Slayer: Kimetsu no Yaiba",
   "https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg/250px-Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg",
   4496,
-  true
+  false
 );
 
 updateUI();
@@ -105,7 +119,6 @@ async function updateUI() {
   const addNew = document.createElement("section");
   addNew.classList.add("book", "add-new");
   addNew.addEventListener("click", (event) => {
-    form.reset();
     addNewDialog.showModal();
   });
 
@@ -130,13 +143,6 @@ function buildBook(book) {
   section.classList.add("book");
   section.dataset.bookId = book.id;
 
-  if (book.read) {
-    const read = document.createElement("div");
-    read.classList.add("read");
-    read.textContent = "📚";
-    section.appendChild(read);
-  }
-
   const h1 = document.createElement("h1");
   h1.classList.add("book-title");
   h1.textContent = book.title;
@@ -160,6 +166,10 @@ function buildBook(book) {
     div.textContent = "No Image";
     figure.appendChild(div);
   }
+  const read = document.createElement("div");
+  read.classList.add("read");
+  read.textContent = book.read ? "📚" : "";
+  figure.appendChild(read);
   section.appendChild(figure);
 
   const bookBar2 = document.createElement("div");
@@ -188,6 +198,15 @@ function buildBook(book) {
   removeBtn.classList.add("book-remove-btn");
   removeBtn.textContent = "Remove";
   btnGroup.appendChild(removeBtn);
+
+  btnGroup.addEventListener("click", (event) => {
+    if (event.target.classList.contains("book-read-btn")) {
+      book.toggleRead();
+    } else if (event.target.classList.contains("book-remove-btn")) {
+      removeBookToLibrary(book);
+    }
+  });
+
   section.appendChild(btnGroup);
 
   return section;
