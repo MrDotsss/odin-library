@@ -12,7 +12,6 @@ describe("add book to library", () => {
       "myself",
       "sdw",
       111,
-      "swww",
       true
     );
     expect(newBook instanceof library.Book).toBe(true);
@@ -26,7 +25,6 @@ describe("remove book to library", () => {
       "myself",
       "sdw",
       111,
-      "swww",
       true
     );
     const prevLength = library.myLibrary.length;
@@ -40,7 +38,6 @@ describe("remove book to library", () => {
       "myself",
       "sdw",
       111,
-      "swww",
       true
     );
     library.removeBookToLibrary(bookToRemove);
@@ -54,7 +51,6 @@ test("properly toggle read boolean", () => {
     "myself",
     "sdw",
     111,
-    "swww",
     true
   );
   const prevReadState = newBook.read;
