@@ -1,222 +1,251 @@
-const myLibrary = [];
+const addBookBtn = document.querySelector(".add-book-container button");
+const newBookDialog = document.getElementById("new-book-dialog");
+const newBookForm = document.getElementById("new-book-form");
+const cancelFormBtn = document.getElementById("cancel-form");
 
-const addNewDialog = document.querySelector("#add-book-modal");
-const cancelDialog = document.querySelector(".cancel-btn");
-const form = document.querySelector(".add-book-dialog form");
-const titleAddBtn = document.querySelector(".btn-container .add-new");
-
-const authorInput = document.querySelector("#author-name");
-const titleInput = document.querySelector("#book-title");
-const pageInput = document.querySelector("#total-pages");
-const imageInput = document.querySelector("#image-url");
-const readCheckbox = document.querySelector("#is-read");
-
-const bookshelfGrid = document.querySelector(".bookshelf-grid");
-
-titleAddBtn.addEventListener("click", (event) => {
-  addNewDialog.showModal();
+cancelFormBtn.addEventListener("click", (event) => {
+  newBookDialog.close();
 });
 
-cancelDialog.addEventListener("click", (event) => {
-  form.reset();
-  addNewDialog.close();
+addBookBtn.addEventListener("click", (event) => {
+  newBookForm.reset();
+  newBookDialog.showModal();
 });
 
+newBookForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  Library.addBook(addBookForm());
+  newBookDialog.close();
+});
+
+//#region  Class Utilities
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  console.table(
-    addBookToLibrary(
-      authorInput.value,
-      titleInput.value,
-      imageInput.value,
-      parseInt(pageInput.value),
-      readCheckbox.checked
-    )
-  );
-  form.reset();
-  addNewDialog.close();
-});
-
-function Book(author, title, imageUrl, page, read) {
-  if (!new.target) {
-    return Error("You must use 'new' keyword to create new Book object.");
+class Book {
+  constructor(name, author, pages, image, description, read) {
+    this.name = name;
+    this.author = author;
+    this.pages = pages;
+    this.image = image;
+    this.description = description;
+    this.read = read;
   }
 
-  this.id = crypto.randomUUID();
-  this.author = author;
-  this.title = title;
-  this.imageUrl = imageUrl;
-  this.page = page;
-  this.read = read;
-  this.info = () => [
-    this.author,
-    this.title,
-    this.imageUrl,
-    this.page,
-    this.read ? "✅" : "❌",
-  ];
-}
+  #readBtn = null;
+  #section = null;
+  #id = crypto.randomUUID();
 
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-
-  const targetElement = document.querySelector(`[data-book-id="${this.id}"]`);
-  const bookReadBtn = targetElement.querySelector(".book-read-btn");
-  const readIcon = targetElement.querySelector(".read");
-  readIcon.textContent = this.read ? "📚" : "";
-  bookReadBtn.textContent = this.read ? "Mark Unread" : "Mark Read";
-};
-
-addBookToLibrary(
-  "Eiichiro Oda",
-  "One Piece",
-  "https://images-us.bookshop.org/ingram/9781974752225.jpg?v=enc-v1",
-  21450,
-  true
-);
-
-addBookToLibrary(
-  "Yukinobu Tatsu",
-  "Dandadan",
-  "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Dandadan_vol._1_cover.jpg/250px-Dandadan_vol._1_cover.jpg",
-  2000,
-  false
-);
-
-addBookToLibrary(
-  "Koyoharu Gotouge",
-  "Demon Slayer: Kimetsu no Yaiba",
-  "https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg/250px-Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg",
-  4496,
-  false
-);
-
-updateUI();
-
-function addBookToLibrary(author, title, imageUrl, page, read) {
-  const newBook = new Book(author, title, imageUrl, page, read);
-  myLibrary.push(newBook);
-  bookshelfGrid.prepend(buildBook(newBook));
-  return newBook;
-}
-
-function removeBookToLibrary(book) {
-  const index = myLibrary.indexOf(book);
-  if (index > -1) {
-    myLibrary.splice(index, 1);
+  get id() {
+    return this.#id;
   }
 
-  updateUI();
-}
-
-async function updateUI() {
-  bookshelfGrid.innerHTML = "";
-
-  const addNew = document.createElement("section");
-  addNew.classList.add("book", "add-new");
-  addNew.addEventListener("click", (event) => {
-    addNewDialog.showModal();
-  });
-
-  const h1 = document.createElement("h1");
-  h1.textContent = "➕";
-  const h1New = document.createElement("h1");
-  h1New.textContent = "Add New";
-  addNew.appendChild(h1);
-  addNew.appendChild(h1New);
-
-  bookshelfGrid.appendChild(addNew);
-
-  for (let i = 0; i < myLibrary.length; i++) {
-    const element = buildBook(myLibrary[i]);
-    bookshelfGrid.prepend(element);
-    await sleep(250);
+  set name(newName) {
+    this._name = newName.toString();
   }
-}
 
-function buildBook(book) {
-  const section = document.createElement("section");
-  section.classList.add("book");
-  section.dataset.bookId = book.id;
-
-  const h1 = document.createElement("h1");
-  h1.classList.add("book-title");
-  h1.textContent = book.title;
-  section.appendChild(h1);
-
-  const bookBar = document.createElement("div");
-  bookBar.classList.add("book-bar");
-  section.appendChild(bookBar);
-
-  const figure = document.createElement("figure");
-  figure.classList.add("book-cover");
-  if (book.imageUrl.trim().length !== 0) {
-    const img = document.createElement("img");
-    img.classList.add("book-img");
-    img.src = book.imageUrl;
-
-    figure.appendChild(img);
-  } else {
-    const div = document.createElement("div");
-    div.classList.add("book-img");
-    div.textContent = "No Image";
-    figure.appendChild(div);
+  get name() {
+    return this._name;
   }
-  const read = document.createElement("div");
-  read.classList.add("read");
-  read.textContent = book.read ? "📚" : "";
-  figure.appendChild(read);
-  section.appendChild(figure);
 
-  const bookBar2 = document.createElement("div");
-  bookBar2.classList.add("book-bar");
-  section.appendChild(bookBar2);
+  set author(newAuthor) {
+    this._author = newAuthor.toString();
+  }
 
-  const authorPage = document.createElement("div");
-  authorPage.classList.add("author-page");
-  const h3 = document.createElement("h3");
-  h3.classList.add("book-author");
-  h3.textContent = book.author;
-  const p = document.createElement("p");
-  p.classList.add("total-pages");
-  p.textContent = book.page.toString() + " Pages";
-  authorPage.appendChild(h3);
-  authorPage.appendChild(p);
-  section.appendChild(authorPage);
+  get author() {
+    return this._author;
+  }
 
-  const btnGroup = document.createElement("div");
-  btnGroup.classList.add("book-btn-group");
-  const readBtn = document.createElement("button");
-  readBtn.classList.add("book-read-btn");
-  readBtn.textContent = book.read ? "Mark Unread" : "Mark Read";
-  btnGroup.appendChild(readBtn);
-  const removeBtn = document.createElement("button");
-  removeBtn.classList.add("book-remove-btn");
-  removeBtn.textContent = "Remove";
-  btnGroup.appendChild(removeBtn);
-
-  btnGroup.addEventListener("click", (event) => {
-    if (event.target.classList.contains("book-read-btn")) {
-      book.toggleRead();
-    } else if (event.target.classList.contains("book-remove-btn")) {
-      removeBookToLibrary(book);
+  set pages(newPage) {
+    if (Number.isInteger(newPage) && newPage > -1) {
+      this._pages = newPage;
+    } else {
+      console.error(`Pages for ${this._name} must be a positive number.`);
     }
-  });
+  }
 
-  section.appendChild(btnGroup);
+  get pages() {
+    return this._pages;
+  }
 
-  return section;
+  set image(newImage) {
+    this._image = newImage.toString();
+  }
+
+  get image() {
+    return this._image;
+  }
+
+  set description(newDescription) {
+    this._description = newDescription.toString();
+  }
+
+  get description() {
+    return this._description;
+  }
+
+  set read(newRead) {
+    if (typeof newRead === "boolean") {
+      this._read = newRead;
+    } else {
+      console.error(`Read for ${this._name} must be boolean.`);
+    }
+  }
+
+  toggleRead() {
+    if (this.#section != null) {
+      const currentClass = this._read ? "read-line" : "book-line";
+      const newClass = this._read ? "book-line" : "read-line";
+      const hrs = this.#section.querySelectorAll(`.${currentClass}`);
+
+      hrs.forEach((element) => {
+        element.classList.replace(currentClass, newClass);
+      });
+    }
+    this._read = !this._read;
+    if (this.#readBtn != null) {
+      this.#readBtn.textContent = this._read ? "Mark Unread" : "Mark Read";
+    }
+  }
+
+  removeUI() {
+    if (this.#section != null) {
+      this.#section.remove();
+    }
+  }
+
+  buildUI() {
+    this.#section = document.createElement("section");
+    this.#section.classList.add("book-item");
+
+    const bookTitle = document.createElement("h1");
+    bookTitle.classList.add("book-title");
+    bookTitle.textContent = this._name;
+    this.#section.appendChild(bookTitle);
+
+    const bookLine1 = document.createElement("hr");
+    bookLine1.classList.add(this._read ? "read-line" : "book-line");
+    this.#section.appendChild(bookLine1);
+
+    const figure = document.createElement("figure");
+    figure.classList.add("book-image");
+    if (this._image.length > 0) {
+      const img = document.createElement("img");
+      img.src = this._image.toString();
+      figure.appendChild(img);
+    } else {
+      const div = document.createElement("div");
+      div.textContent = "No Image";
+      figure.appendChild(div);
+    }
+    this.#section.appendChild(figure);
+
+    const bookLine2 = document.createElement("hr");
+    bookLine2.classList.add(this._read ? "read-line" : "book-line");
+    this.#section.appendChild(bookLine2);
+
+    const h2 = document.createElement("h2");
+    h2.classList.add("book-author");
+    h2.textContent = this._author;
+    this.#section.appendChild(h2);
+
+    const pagesText = document.createElement("p");
+    pagesText.classList.add("total-pages");
+    pagesText.textContent = this._pages.toLocaleString("en-US") + " pages";
+    this.#section.appendChild(pagesText);
+
+    const btnGroup = document.createElement("div");
+    btnGroup.classList.add("button-group");
+    btnGroup.dataset.bookId = this.#id;
+    this.#readBtn = document.createElement("button");
+    this.#readBtn.classList.add("toggle-read");
+    this.#readBtn.textContent = this._read ? "Mark Unread" : "Mark Read";
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add("remove-book");
+    removeBtn.textContent = "Remove";
+    btnGroup.appendChild(this.#readBtn);
+    btnGroup.appendChild(removeBtn);
+    this.#section.appendChild(btnGroup);
+
+    const div = document.createElement("div");
+    div.classList.add("description-container");
+    const p2 = document.createElement("p");
+    p2.textContent =
+      this._description.length > 0 ? this._description : "No description";
+    div.appendChild(p2);
+    this.#section.appendChild(div);
+
+    return this.#section;
+  }
 }
 
-if (typeof module !== "undefined") {
-  module.exports = {
-    Book,
-    myLibrary,
-    addBookToLibrary,
-    removeBookToLibrary,
-  };
+class Library {
+  static #books = [];
+
+  static addBook(book) {
+    if (book instanceof Book) {
+      const bookGrid = document.querySelector(".book-grid");
+      this.#books.push(book);
+      const ui = book.buildUI();
+      bookGrid.prepend(ui);
+    } else if (Array.isArray(book)) {
+      this.#books.push(...book);
+    } else {
+      throw Error(
+        `${book} should be an instance of Book class, instead of '${typeof book}'`
+      );
+    }
+  }
+  static async buildLibrary() {
+    const bookGrid = document.querySelector(".book-grid");
+    bookGrid.addEventListener("click", (event) => {
+      const id = event.target.parentElement.dataset.bookId;
+      const index = this.#books.findIndex((book) => book.id === id);
+      if (index !== -1) {
+        if (event.target.classList.contains("toggle-read")) {
+          this.#books[index].toggleRead();
+        } else if (event.target.classList.contains("remove-book")) {
+          this.#books[index].removeUI();
+          this.#books.splice(index, 1);
+          console.table(this.#books);
+        }
+      }
+    });
+
+    if (bookGrid) {
+      for (let i = 0; i < this.#books.length; i++) {
+        const book = this.#books[i].buildUI();
+        bookGrid.prepend(book);
+        await sleep(300);
+      }
+    }
+  }
 }
+//#endregion
+
+function addBookForm() {
+  const inputValues = new Book(
+    document.getElementById("book-title-input").value,
+    document.getElementById("book-author-input").value,
+    Number(document.getElementById("book-pages-input").value),
+    document.getElementById("book-image-input").value,
+    document.getElementById("book-description-input").value,
+    document.getElementById("mark-read-input").checked
+  );
+
+  return inputValues;
+}
+
+const books = [
+  new Book(
+    "One Piece",
+    "Eiichiro Oda",
+    24000,
+    "https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg",
+    "One Piece is a Japanese manga series written and illustrated by Eiichiro Oda. It follows the adventures of Monkey D. Luffy and his crew, the Straw Hat Pirates, as he explores the Grand Line in search of the mythical treasure known as the 'One Piece' to become the next King of the Pirates.",
+    true
+  ),
+];
+Library.addBook(books);
+Library.buildLibrary();

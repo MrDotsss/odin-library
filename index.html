@@ -5,60 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Odin Library</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
   </head>
   <body>
     <header>
-      <h1>Odin Library</h1>
-      <p>A creative collection of books.</p>
-      <div class="btn-container">
-        <button class="add-new">Add New +</button>
-      </div>
+      <h2>Odin</h2>
+      <h1>Library</h1>
+      <p>A great collection of books and entertainment.</p>
     </header>
-    <main class="bookshelf-grid">
-      <section class="book add-new">
-        <h1>➕</h1>
-        <h1>Add New</h1>
-      </section>
-    </main>
-    <dialog id="add-book-modal">
-      <div class="add-book-dialog">
-        <h1>Add New Book</h1>
-        <div class="book-bar"></div>
-        <form>
-          <div class="input-field">
-            <label for="author-name">Author Name *</label
-            ><input type="text" name="author-name" id="author-name" required />
-          </div>
-          <div class="input-field">
-            <label for="book-title">Book Title *</label
-            ><input type="text" name="book-title" id="book-title" required />
-          </div>
-          <div class="input-field">
-            <label for="total-pages">Total Pages *</label
-            ><input
-              type="number"
-              name="total-pages"
-              id="total-pages"
-              min="0"
-              required
-            />
-          </div>
-          <div class="input-field">
-            <label for="image-url">Image URL (optional)</label
-            ><input type="url" name="image-url" id="image-url" />
-          </div>
-          <div class="book-bar"></div>
-          <div class="form-btn-group">
-            <div class="input-field">
-              <input type="checkbox" id="is-read" />
-              <label for="is-read"> Mark as Read </label>
-            </div>
-            <button type="button" class="cancel-btn">Cancel</button>
-            <button type="submit">Add New</button>
-          </div>
-        </form>
+    <main>
+      <div class="add-book-container">
+        <button>➕</button>
       </div>
+      <section class="book-grid"></section>
+    </main>
+    <footer>
+      <div>
+        Odin Project: Library |
+        <span>MrDotsss&copy; 2025</span>
+      </div>
+    </footer>
+    <dialog id="new-book-dialog">
+      <form action="#" id="new-book-form">
+        <h1>New Book</h1>
+        <hr class="book-line" />
+        <div class="user-input">
+          <label for="book-title-input" class="required-input"
+            >Book Title</label
+          >
+          <input
+            type="text"
+            name="book-title-input"
+            id="book-title-input"
+            required
+          />
+        </div>
+        <div class="user-input">
+          <label for="book-author-input" class="required-input">Author</label>
+          <input
+            type="text"
+            name="book-author-input"
+            id="book-author-input"
+            required
+          />
+        </div>
+        <div class="user-input">
+          <label for="book-pages-input" class="required-input"
+            >Total Pages</label
+          >
+          <input
+            type="number"
+            name="book-pages-input"
+            id="book-pages-input"
+            required
+          />
+        </div>
+        <div class="user-input">
+          <label for="book-image-input">Image URL</label>
+          <input type="url" name="book-image-input" id="book-image-input" />
+        </div>
+        <div class="user-input">
+          <label for="book-description-input">Description</label>
+          <textarea
+            name="book-description-input"
+            id="book-description-input"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <hr class="book-line" />
+        <div class="user-input">
+          <label for="mark-read-input">Mark Read</label>
+          <input type="checkbox" name="mark-read-input" id="mark-read-input" />
+        </div>
+        <div class="form-buttons">
+          <button type="submit">Confirm</button>
+          <button type="button" id="cancel-form">Cancel</button>
+        </div>
+      </form>
     </dialog>
+
+    <script src="script.js"></script>
   </body>
 </html>
