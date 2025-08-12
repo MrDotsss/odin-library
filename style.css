@@ -290,14 +290,24 @@ footer {
   padding: 0 0.5rem;
 }
 
+.required-input::after {
+  content: " (required)";
+  color: var(--danger);
+  font-size: 0.8rem;
+}
+
 #new-book-form > h1 {
   text-align: center;
   text-shadow: 0 0 8px var(--highlight);
 }
 
-.user-input > * {
+.user-input > *{
   display: block;
   text-align: center;
+}
+
+.user-input textarea {
+  text-align: justify;
 }
 
 .user-input label {

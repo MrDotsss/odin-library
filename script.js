@@ -246,6 +246,30 @@ const books = [
     "One Piece is a Japanese manga series written and illustrated by Eiichiro Oda. It follows the adventures of Monkey D. Luffy and his crew, the Straw Hat Pirates, as he explores the Grand Line in search of the mythical treasure known as the 'One Piece' to become the next King of the Pirates.",
     true
   ),
+  new Book(
+    "Demon Slayer: Kimetsu no Yaiba",
+    "Koyoharu Gotouge",
+    4496,
+    "https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg/250px-Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg",
+    "Demon Slayer: Kimetsu no Yaiba is a Japanese manga series written and illustrated by Koyoharu Gotouge. It was serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump from February 2016 to May 2020, with its chapters collected in 23 tankōbon volumes.",
+    false
+  ),
+  new Book(
+    "The Fragrant Flower Blooms with Dignity",
+    "Saka Mikami",
+    3456,
+    "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg/250px-Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg",
+    "The Fragrant Flower Blooms with Dignity is a Japanese manga series written and illustrated by Saka Mikami. It began serialization on Kodansha's Magazine Pocket manga website and app in October 2021, with its chapters collected in 18 tankōbon volumes as of August 2025.",
+    false
+  ),
+  new Book(
+    "Empty Book",
+    "Cool isn't it",
+    0,
+    "",
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium quia excepturi, aliquam dignissimos facilis ut repudiandae! Perferendis doloribus animi magnam labore nihil quasi esse vitae quisquam natus, explicabo, amet reprehenderit? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi eveniet ducimus nisi quae nobis obcaecati nesciunt hic, officia voluptate voluptatem voluptas impedit fugiat dolores fuga tenetur dolor? Vel, voluptatibus laudantium? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam nisi inventore neque. Reprehenderit recusandae velit iste cumque iure sint magni temporibus quasi odit cum unde nulla corrupti, praesentium voluptate cupiditate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo alias minus illo rem sed omnis delectus modi, asperiores, animi, et magni expedita rerum explicabo nulla tempora eaque incidunt exercitationem praesentium!e Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae quasi eaque cum sapiente autem vitae? Dolores, similique provident veniam earum, non ab delectus dolorem quidem natus autem ipsam numquam perspiciatis? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam, sunt. Tempora, porro quam nisi natus repudiandae, voluptatum ab consequatur reiciendis ducimus rem quaerat autem dolore, tempore vero beatae? Hic, accusantium? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex eos voluptatibus veritatis, vitae beatae similique odio quos sequi ipsa? Provident maxime perspiciatis omnis quia alias saepe placeat, eum dolore nobis.",
+    true
+  ),
 ];
 Library.addBook(books);
 Library.buildLibrary();
